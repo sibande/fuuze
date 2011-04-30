@@ -1,11 +1,17 @@
 <?php
 /*
  * Fuuze PHP framework Controller and core logic.
+ * include("Fuuze.php"); then create and instance of class Run
  */
 
-function __autoload($class) {
+define('CONFIG_FILE', 'config.php');
 
-  include('config.php'); #??? not dry enough
+function __autoload($class) {
+  /*
+   * Autoloads controllers and in predefined controller paths
+   */
+  
+  include(CONFIG_FILE);
 
   if (file_exists($class.'.php')){
     include($class . '.php');
@@ -19,15 +25,21 @@ function __autoload($class) {
 }
 
 class Fuuze {
-  
-  function __construct(){
-    include('config.php'); #??? not dry enough
+  /*
+   * fuuze's core controller
+   */
+  public function __construct(){
+    include(CONFIG_FILE);
     $this->Fuuze_config = $Fuuze_config;
     $this->errors = array();
 
     $this->connect_db();
   }
-  final public function render($view){
+  public function render($view){
+    /*
+     * Renders controller template/view
+     * $this->render("index.php"); // loads views/index.php
+     */
     $view_file = 'views/'.$view;
     if (file_exists($view_file)){
       include($view_file);
@@ -35,7 +47,10 @@ class Fuuze {
       echo 'View '.$view.' was not found under views/ folder.';
     }
   }
-  protected function connect_db(){
+  public function connect_db(){
+    /*
+     * Initializes PDO and sets $this->dbh for further db operations
+     */
     try {
       list($db_driver, $db_user, $db_pass) = $this->Fuuze_config['db_connect'];
       $this->dbh = new PDO($db_driver, $db_user, $db_pass);
@@ -48,9 +63,11 @@ class Fuuze {
 }
 
 class Run {
-
-  function __construct(){
-    include_once('config.php');
+  /*
+   * Processes request and runs matched controller and action
+   */
+  public function __construct(){
+    include_once(CONFIG_FILE);
 
     $path = $_SERVER['SCRIPT_URL'];
     
@@ -66,7 +83,7 @@ class Run {
 	$http_404_error = True;
       }
     }
-    #sends the 404 header if page was not matched
+    //sends the 404 header if page was not matched
     if (isset($http_404_error)){
       header("Status: 404 Not Found");
       echo 'Page you were looking for was not found';
