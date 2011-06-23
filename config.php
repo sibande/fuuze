@@ -1,10 +1,17 @@
 <?php
 
+if ( ! defined('CONFIG_LOADED'))
+{
+  define('CONFIG_LOADED', TRUE);
+  define('APPLICATION_DIR', 'app');
+}
 
 $Fuuze_config = array(
-		      'routes' => array(
-				       '/^\/$/'=>array('Index', 'home'),
-					),
-		      'apps' => array(''),
-		      'db_connect' => array('mysql:host=localhost;dbname=devdb', 'root', ''),
-		      );
+  // URL routes 'url regex' => array('class name', 'action', 'class sub directory separated by _')
+  'routes' => array(
+    '/^\/$/'=>array('Site_Main', 'index', ''),
+    ),
+  'db_connect' => array('mysql:host=localhost;dbname=devdb', 'root', ''),
+  );
+
+return $Fuuze_config;
