@@ -1,7 +1,7 @@
 <?php
 
 
-require('fuuze/Fuuze.php');
+require('fuuze/fuuze.php');
 
 spl_autoload_register('autoload');
 
