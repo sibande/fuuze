@@ -4,6 +4,7 @@ if ( ! defined('CONFIG_LOADED'))
 {
   define('CONFIG_LOADED', TRUE);
   define('APPLICATION_DIR', 'app');
+  define('DEBUG', TRUE);
 }
 
 $Fuuze_config = array(

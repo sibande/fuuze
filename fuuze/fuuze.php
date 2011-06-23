@@ -34,33 +34,36 @@ function autoload($class)
  */
 class Fuuze
 {
+
   public function __construct()
   {
     $this->fconfig = require(dirname(__FILE__).'/../config.php');
     
+    $this->app_path = PROJECT_ROOT_DIR.'/'.APPLICATION_DIR;
+
     $this->errors = array();
     
     $this->connect_db();
   }
+
   /**
-   * Renders controller template/view
-   * $this->render("index.php"); // loads views/index.php
-   *
-   * @param   string view name
+   * Renders template
+   * 
+   * @param   string  template name
+   * @param   array   variables to be display in template
    * @return  void
    */
-  public function render($view)
+  public function render($template, $variables = array())
   {
-    $view_file = 'views/'.$view;
-    if (file_exists($view_file))
-    {
-      include($view_file);
-    }
-    else
-    {
-      echo 'View '.$view.' was not found under views/ folder.';
-    }
+    $loader = new Twig_Loader_Filesystem(array($this->app_path.'/templates'));
+    $twig = new Twig_Environment($loader, array(
+				   'debug' => DEBUG,
+				   ));
+    $template = $twig->loadTemplate($template);
+
+    echo $template->render( (array) $variables);
   }
+
   /**
    * Initializes PDO and sets $this->dbh
    *
@@ -84,6 +87,7 @@ class Fuuze
 
 class Run
 {
+
   /**
    * Processes request and runs matched controller and action
    */
