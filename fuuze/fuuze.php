@@ -101,19 +101,15 @@ class Run
     {
       if (preg_match($route, $path))
       {
+	$requested_url_valid = TRUE;;
 	list($controller, $action, $sub_dir) = $options;
 	$class = $sub_dir.$controller;
 	$page = new $class;
 	$page->$action();
 	break;
       }
-      else
-      {
-	$http_404_error = True;
-      }
     }
-    //sends the 404 header if page was not matched
-    if (isset($http_404_error))
+    if ( ! isset($requested_url_valid))
     {
       header("Status: 404 Not Found");
       echo 'Page you were looking for was not found';
