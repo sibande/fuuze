@@ -37,7 +37,7 @@ class Fuuze
 
   public function __construct()
   {
-    $this->fconfig = require(dirname(__FILE__).'/../config.php');
+    $this->fconfig = require(PROJECT_ROOT_DIR.'/'.FRAMEWORK_DIR.'/config.php');
     
     $this->app_path = PROJECT_ROOT_DIR.'/'.APPLICATION_DIR;
 
@@ -93,7 +93,7 @@ class Run
    */
   public function __construct()
   {
-    $fconfig = require(dirname(__FILE__).'/../config.php');
+    $fconfig = require(PROJECT_ROOT_DIR.'/'.FRAMEWORK_DIR.'/config.php');
  
     $path = $_SERVER['SCRIPT_URL'];
     

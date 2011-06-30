@@ -10,6 +10,8 @@ Twig_Autoloader::register();
 spl_autoload_register('autoload');
 
 define('PROJECT_ROOT_DIR', dirname(dirname(__FILE__)));
+define('APPLICATION_DIR', 'app');
+define('FRAMEWORK_DIR', 'web');
 
 
 new Run;
