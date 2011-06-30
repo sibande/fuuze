@@ -99,13 +99,13 @@ class Run
     
     foreach ($fconfig['routes'] as $route=>$options)
     {
-      if (preg_match($route, $path))
+      if (preg_match($route, $path, $matches))
       {
 	$requested_url_valid = TRUE;;
 	list($controller, $action, $sub_dir) = $options;
 	$class = $sub_dir.$controller;
 	$page = new $class;
-	$page->$action();
+	$page->$action($request=array('matches'=>$matches));
 	break;
       }
     }
