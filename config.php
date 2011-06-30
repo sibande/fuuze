@@ -12,7 +12,10 @@ $Fuuze_config = array(
   'routes' => array(
     '/^\/$/'=>array('Site_Main', 'index', ''),
     ),
-  'db_connect' => array('mysql:host=localhost;dbname=devdb', 'root', ''),
+  // General config
+  'hash_secret_key' => '\xb0\xbd\xd5d.\x1f\x9a\x82\x96\xee\x1aj\x0f\x1b(%G\xda\xd1_o"\xee\xe3', 
+  // DB connect
+  'db_connect' => array('pgsql:host=localhost;dbname=mobicmsdb', 'root', ''),
   );
 
 return $Fuuze_config;

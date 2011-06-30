@@ -3,7 +3,7 @@
  * Fuuze PHP framework Controller and core logic.
  * 
  * @package   fuuze
- * @author    JB Sibande
+ * @author    Jose Sibande <jbsibande@gmail.com>
  * @license   (c) 2010 JB Sibande GNU GPL 3.  
  */
 
@@ -74,8 +74,8 @@ class Fuuze
     try
     {
       list($db_driver, $db_user, $db_pass) = $this->fconfig['db_connect'];
-      $this->dbh = new PDO($db_driver, $db_user, $db_pass);
-      $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $this->db = new PDO($db_driver, $db_user, $db_pass);
+      $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch (PDOException $e)
     {
