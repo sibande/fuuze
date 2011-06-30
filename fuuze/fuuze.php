@@ -105,7 +105,7 @@ class Run
 	list($controller, $action, $sub_dir) = $options;
 	$class = $sub_dir.$controller;
 	$page = new $class;
-	$page->$action($request=array('matches'=>$matches));
+	$page->$action($request=array('route'=>$matches));
 	break;
       }
     }
