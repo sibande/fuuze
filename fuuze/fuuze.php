@@ -37,7 +37,7 @@ class Fuuze
 
   public function __construct()
   {
-    $this->fconfig = require(PROJECT_ROOT_DIR.'/'.FRAMEWORK_DIR.'/config.php');
+    $this->fconfig = require(FCONFIG_FILE_PATH);
     
     $this->app_path = PROJECT_ROOT_DIR.'/'.APPLICATION_DIR;
 
@@ -79,7 +79,7 @@ class Fuuze
    */
   static public function connect_db()
   {
-    $fconfig = require(PROJECT_ROOT_DIR.'/'.FRAMEWORK_DIR.'/config.php');
+    $fconfig = require(FCONFIG_FILE_PATH);
     try
     {
       list($db_driver, $db_user, $db_pass) = $fconfig['db_connect'];
@@ -103,8 +103,8 @@ class Run
    */
   public function __construct()
   {
-    $fconfig = require(PROJECT_ROOT_DIR.'/'.FRAMEWORK_DIR.'/config.php');
- 
+    $fconfig = require(FCONFIG_FILE_PATH);
+    
     $path = $_SERVER['SCRIPT_URL'];
     
     foreach ($fconfig['routes'] as $route=>$options)
