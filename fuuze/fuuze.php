@@ -43,7 +43,7 @@ class Fuuze
 
     $this->errors = array();
     
-    $this->connect_db();
+    $this->db = self::connect_db();
   }
 
   /**
@@ -69,19 +69,21 @@ class Fuuze
    *
    * @return void
    */
-  public function connect_db()
+  static public function connect_db()
   {
+    $fconfig = require(PROJECT_ROOT_DIR.'/'.FRAMEWORK_DIR.'/config.php');
     try
     {
-      list($db_driver, $db_user, $db_pass) = $this->fconfig['db_connect'];
-      $this->db = new PDO($db_driver, $db_user, $db_pass);
-      $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      list($db_driver, $db_user, $db_pass) = $fconfig['db_connect'];
+      $db = new PDO($db_driver, $db_user, $db_pass);
+      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch (PDOException $e)
     {
       print "Error!: " . $e->getMessage() . "<br/>";
       die();
     }
+    return $db;
   }
 }
 
