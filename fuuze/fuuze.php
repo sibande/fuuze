@@ -42,6 +42,8 @@ class Fuuze
     $this->app_path = PROJECT_ROOT_DIR.'/'.APPLICATION_DIR;
 
     $this->errors = array();
+    // prepare render function
+    $this->render();
     
     $this->db = self::connect_db();
   }
@@ -53,15 +55,21 @@ class Fuuze
    * @param   array   variables to be display in template
    * @return  void
    */
-  public function render($template, $variables = array())
+  public function render($template=NULL, $variables = array())
   {
-    $loader = new Twig_Loader_Filesystem(array($this->app_path.'/templates'));
-    $twig = new Twig_Environment($loader, array(
-				   'debug' => DEBUG,
-				   ));
-    $template = $twig->loadTemplate($template);
-
-    echo $template->render( (array) $variables);
+    // check if render was called to make $_twig_env available 
+    if (( ! (bool) $template) and ( ! isset($this->_twig_env)))
+    {
+      $loader = new Twig_Loader_Filesystem(array($this->app_path.'/templates'));
+      $this->_twig_env = new Twig_Environment($loader, array(
+						'debug' => DEBUG,
+						));
+    }
+    else
+    {
+      $template = $this->_twig_env->loadTemplate($template);
+      echo $template->render( (array) $variables);
+    }
   }
 
   /**
