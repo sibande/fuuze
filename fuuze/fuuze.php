@@ -7,28 +7,6 @@
  * @license   (c) 2010 JB Sibande GNU GPL 3.  
  */
 
-
-/**
- * Autoloads a class defined under app directory
- *
- * @param   string  a class name
- * @return  void
- */
-function autoload($class)
-{
-  $file = PROJECT_ROOT_DIR.'/'.APPLICATION_DIR.'/'.str_replace('_', '/', strtolower($class)).'.php';
-  if (file_exists($file))
-  {
-    require $file;
-  }
-  else
-  {
-    echo $class.' not found.';
-    die();
-  }
-}
-
-
 /**
  * Parent controller
  */
@@ -48,6 +26,26 @@ class Fuuze
     $this->db = self::connect_db();
   }
 
+  /**
+   * Autoloads a class defined under app directory
+   *
+   * @param   string  a class name
+   * @return  void
+   */
+  public static function autoload($class)
+  {
+    $file = PROJECT_ROOT_DIR.'/'.APPLICATION_DIR.'/'.str_replace('_', '/', strtolower($class)).'.php';
+    if (file_exists($file))
+    {
+      require $file;
+    }
+    else
+    {
+      echo $class.' not found.';
+      die();
+    }
+  }
+  
   /**
    * Renders template
    * 
