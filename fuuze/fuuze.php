@@ -103,11 +103,11 @@ class Run
   {
     $fconfig = require(FCONFIG_FILE_PATH);
     
-    $path = $_SERVER['SCRIPT_URL'];
-    
+    $url = parse_url('http://devnull'.$_SERVER['REQUEST_URI']);
+
     foreach ($fconfig['routes'] as $route=>$options)
     {
-      if (preg_match($route, $path, $matches))
+      if (preg_match($route, $url['path'], $matches))
       {
 	$requested_url_valid = TRUE;;
 	list($controller, $action, $sub_dir) = $options;
